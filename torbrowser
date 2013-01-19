@@ -27,3 +27,6 @@ Description: Tor Browser Bundle
 
 Files: torbrowser-bin /usr/bin
  tor-browser-gnu-linux-x86_64-2.3.25-2-dev-en-US.tar.gz /usr/lib/torbrowser
+ torbrowser.desktop /usr/share/applications
+ torbrowser32.xpm /usr/share/pixmaps
+ torbrowser80.xpm /usr/share/pixmaps
