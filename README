@@ -8,4 +8,13 @@ It occured to me that Tor's current method of packaging TBB is really simple. It
 This is just a proof-of-concept. Obviously it will need to be more complicated because of architectures, localization, etc. I don't have any experience maintaining debian packages. So please excuse the mess. In this example I'm including the x86_64 Linux TBB, since that's my OS.
 
 To build a new .deb:
+
 equivs-build torbrowser
+
+This creates a debian package, torbrowser_2.3.25-2_all.deb. To install it:
+
+sudo dpkg -i torbrowser_2.3.25-2_all.deb
+
+To uninstall:
+
+sudo apt-get remove torbrowser
