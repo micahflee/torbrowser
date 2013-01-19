@@ -1,8 +1,11 @@
-I had an idea for a (perhaps overly) simple solution to packaging Tor Browser Bundle in debian.
+I had an idea for a (perhaps overly) simple solution to packaging Tor Browser Bundle in debian. Here's background on the problem:
 
-Here's background on the problem:
 https://trac.torproject.org/projects/tor/ticket/3994
 https://trac.torproject.org/projects/tor/ticket/5236
+
+It occured to me that Tor's current method of packaging TBB is really simple. It's just a bunch of files in a directory. So why not have the deb just extract this directory in the user's homedir if it's not already there, and write a launcher script that runs it?
+
+This is just a proof-of-concept. Obviously it will need to be more complicated because of architectures, localization, etc. I don't have any experience maintaining debian packages. So please excuse the mess. In this example I'm including the x86_64 Linux TBB, since that's my OS.
 
 To build a new .deb:
 equivs-build torbrowser

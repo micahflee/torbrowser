@@ -1,10 +1,21 @@
 #!/bin/bash
 
 VERSION=2.3.25-2
+INSTALL_DIR=~/.torbrowser
+TARBALL=/usr/lib/torbrowser/tor-browser-gnu-linux-x86_64-2.3.25-2-dev-en-US.tar.gz
 
-# todo: 
-# - if ~/.torbrowser/$VERSION doesn't exist exist
-#   - copy /usr/lib/torbrowser/tor-browser-gnu-linux-x86_64-2.3.25-2-dev-en-US.tar.gz into it
-#   - extract it to $VERSION
-# - execute ~/.torbrowser/$VERSION/start-tor-browser
+# make sure install dir exists
+if [ ! -d "$INSTALL_DIR" ]; then
+  mkdir $INSTALL_DIR
+fi
+
+# make sure ~/.torbrowser/$VERSION exists
+if [ ! -d "$INSTALL_DIR/$VERSION" ]; then
+  cd $INSTALL_DIR
+  tar -xf $TARBALL
+  mv tor-browser_en-US $VERSION
+fi
+
+# start Tor Browser
+$INSTALL_DIR/$VERSION/start-tor-browser
 
