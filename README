@@ -1,0 +1,8 @@
+I had an idea for a (perhaps overly) simple solution to packaging Tor Browser Bundle in debian.
+
+Here's background on the problem:
+https://trac.torproject.org/projects/tor/ticket/3994
+https://trac.torproject.org/projects/tor/ticket/5236
+
+To build a new .deb:
+equivs-build torbrowser

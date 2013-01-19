@@ -1,0 +1,10 @@
+#!/bin/bash
+
+VERSION=2.3.25-2
+
+# todo: 
+# - if ~/.torbrowser/$VERSION doesn't exist exist
+#   - copy /usr/lib/torbrowser/tor-browser-gnu-linux-x86_64-2.3.25-2-dev-en-US.tar.gz into it
+#   - extract it to $VERSION
+# - execute ~/.torbrowser/$VERSION/start-tor-browser
+
