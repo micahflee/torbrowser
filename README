@@ -11,9 +11,9 @@ To build a new .deb:
 
 equivs-build torbrowser
 
-This creates a debian package, torbrowser_2.3.25-2_all.deb. To install it:
+This creates a debian package, torbrowser_2.3.25-2_amd64.deb. To install it:
 
-sudo dpkg -i torbrowser_2.3.25-2_all.deb
+sudo dpkg -i torbrowser_2.3.25-2_amd64.deb
 
 To uninstall:
 
