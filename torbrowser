@@ -27,6 +27,37 @@ Description: Tor Browser Bundle
 
 Files: torbrowser-bin /usr/bin
  tor-browser-gnu-linux-x86_64-2.3.25-2-dev-en-US.tar.gz /usr/lib/torbrowser
+ start-tor-browser /usr/lib/torbrowser
  torbrowser.desktop /usr/share/applications
  torbrowser32.xpm /usr/share/pixmaps
  torbrowser80.xpm /usr/share/pixmaps
+
+File: postinst
+  #!/bin/sh
+  echo 'Extracting TBB tarball'
+  cd /usr/lib/torbrowser
+  rm -rf tbb
+  tar -xf tor-browser-gnu-linux-x86_64-2.3.25-2-dev-en-US.tar.gz
+  mv tor-browser_en-US tbb
+  chmod 755 /usr/lib/torbrowser/tbb/Data/Tor/
+
+  echo 'Modifying TBB'
+  cp /usr/lib/torbrowser/start-tor-browser /usr/lib/torbrowser/tbb
+
+  # I started out making trying to modify start-tor-browser with a bunch of grep and sed,
+  # but it got really hacky. It would be very simple to change that script in a future
+  # release to be easily modifyable with this script. But for now I'm just packaging
+  # my own version.
+  #echo 'Modifying TBB'
+  #mv tbb/start-tor-browser tbb/start-tor-browser.bak
+  #cat tbb/start-tor-browser.bak | head -n 1 > tbb/start-tor-browser
+  #echo "DATA_DIR=\$HOME/.torbrowser/Data" >> tbb/start-tor-browser
+  #echo "TOR_HOME_DIR=\$HOME/.torbrowser" >> tbb/start-tor-browser 
+  #echo "TBB_DIR=/usr/lib/torbrowser/tbb" >> tbb/start-tor-browser 
+  #cat tbb/start-tor-browser.bak | tail -n +2 | sed 's/--datadir Data/--datadir \$DATA_DIR/' | sed 's/cd "${HOME}"/cd "${TOR_HOME_DIR}"/' | sed 's/\.\/App\/vidalia/$TBB_DIR\/App\/vidalia/' >> tbb/start-tor-browser
+  #rm tbb/start-tor-browser.bak
+  #chmod 755 tbb/start-tor-browser
+
+File: postrm
+  #!/bin/sh
+  rm -rf /usr/lib/torbrowser/tbb

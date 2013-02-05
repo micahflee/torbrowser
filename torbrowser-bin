@@ -1,21 +1,29 @@
 #!/bin/bash
 
-VERSION=2.3.25-2
-INSTALL_DIR=~/.torbrowser
-TARBALL=/usr/lib/torbrowser/tor-browser-gnu-linux-x86_64-2.3.25-2-dev-en-US.tar.gz
+TBB_DIR=/usr/lib/torbrowser/tbb
+DATA_DIR=~/.torbrowser
 
-# make sure install dir exists
-if [ ! -d "$INSTALL_DIR" ]; then
-  mkdir $INSTALL_DIR
-fi
+# make sure profile dir exists
+if [ ! -d "$DATA_DIR" ]; then
+  # copy TBB data
+  echo 'copy TBB data'
+  mkdir $DATA_DIR
+  cp -r $TBB_DIR/Data/* $DATA_DIR
+  chmod 700 $DATA_DIR/Tor
 
-# make sure ~/.torbrowser/$VERSION exists
-if [ ! -d "$INSTALL_DIR/$VERSION" ]; then
-  cd $INSTALL_DIR
-  tar -xf $TARBALL
-  mv tor-browser_en-US $VERSION
+  # modify torrc
+  echo 'modify torrc'
+  mv $DATA_DIR/Tor/torrc $DATA_DIR/Tor/torrc.bak
+  sed "s:./Data:$DATA_DIR:" $DATA_DIR/Tor/torrc.bak > $DATA_DIR/Tor/torrc
+  rm $DATA_DIR/Tor/torrc.bak
+
+  # modify vidalia.conf
+  echo 'modify vidalia.conf'
+  mv $DATA_DIR/Vidalia/vidalia.conf $DATA_DIR/Vidalia/vidalia.conf.bak
+  cat $DATA_DIR/Vidalia/vidalia.conf.bak | sed "s:../../Data:$DATA_DIR:" | sed "s:../Data:$DATA_DIR:" > $DATA_DIR/Vidalia/vidalia.conf
+  rm $DATA_DIR/Vidalia/vidalia.conf.bak
 fi
 
 # start Tor Browser
-$INSTALL_DIR/$VERSION/start-tor-browser
+$TBB_DIR/start-tor-browser
 
